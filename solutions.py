@@ -64,6 +64,26 @@ contained in a. Your function definition should look like question2(a),
 and return a string.
 """
 
+def question2(s):
+    # Assess if s is a string or empty
+    if not s or not isinstance(s, basestring):
+        return 'Input not a string or empty'
+
+    palindromes = []
+    # lowercase and remove whitespaces on the string
+    s = s.lower()
+    s = s.replace(" ", "")
+    for i in range(len(s)):
+        for j in range(0, i):
+            substring = s[j:i + 1]
+            if substring == substring[::-1]:
+                palindromes.append(substring)
+
+    if palindromes:
+        longest = max(palindromes, key=len)
+        return 'Longest palindrome: %s' % (longest)
+    return 'No Palindrome found'
+
 """
 Question 3: Given an undirected graph G, find the minimum spanning tree
 within G. A minimum spanning tree connects all vertices in a graph with the
