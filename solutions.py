@@ -360,6 +360,71 @@ def question4(T, r, n1, n2):
     return getLCA(root, n1, n2)
 
 
+class TestQuestion4(unittest.TestCase):
+    print '\nTESTCASES FOR QUESTION #4: \n'
+
+    def test_getLCA(self):
+        self.assertEqual(question4([[0, 1, 0, 0, 0],
+                                    [0, 0, 0, 0, 0],
+                                    [0, 0, 0, 0, 0],
+                                    [1, 0, 0, 0, 1],
+                                    [0, 0, 0, 0, 0]],
+                                   3,
+                                   1,
+                                   4), 3)
+        self.assertEqual(question4([[0, 1, 0, 0, 0],
+                                    [0, 0, 0, 0, 0],
+                                    [0, 0, 0, 0, 0],
+                                    [1, 0, 0, 0, 1],
+                                    [0, 0, 0, 0, 0]],
+                                   3,
+                                   1,
+                                   0), 0)
+        self.assertEqual(question4([[0, 0, 0, 0, 0, 0],
+                                    [1, 0, 0, 0, 1, 0],
+                                    [0, 0, 0, 0, 0, 0],
+                                    [0, 0, 0, 0, 0, 1],
+                                    [0, 0, 1, 1, 0, 0],
+                                    [0, 0, 0, 0, 0, 0]],
+                                   1,
+                                   2,
+                                   5), 4)
+
+    def test_matrixinput(self):
+        with self.assertRaises(IndexError):
+            question4([], 3, 1, 4)
+
+    def test_nodeinput(self):
+        with self.assertRaises(TypeError):
+            question4([[0, 1, 0, 0, 0],
+                       [0, 0, 0, 0, 0],
+                       [0, 0, 0, 0, 0],
+                       [1, 0, 0, 0, 1],
+                       [0, 0, 0, 0, 0]],
+                      'stringroot',
+                      1,
+                      4)
+        self.assertEqual(question4([[0, 1, 0, 0, 0],
+                                    [0, 0, 0, 0, 0],
+                                    [0, 0, 0, 0, 0],
+                                    [1, 0, 0, 0, 1],
+                                    [0, 0, 0, 0, 0]],
+                                   3,
+                                   'stringnode1',
+                                   4), 'Node input not integer')
+        self.assertEqual(question4([[0, 1, 0, 0, 0],
+                                    [0, 0, 0, 0, 0],
+                                    [0, 0, 0, 0, 0],
+                                    [1, 0, 0, 0, 1],
+                                    [0, 0, 0, 0, 0]],
+                                   3,
+                                   1,
+                                   'stringnode2'), 'Node input not integer')
+
+
+suite = unittest.TestLoader().loadTestsFromTestCase(TestQuestion4)
+unittest.TextTestRunner(verbosity=2).run(suite)
+
 """
 Question 5: Find the element in a singly linked list that's m elements
 from the end. For example, if a linked list has 5 elements, the 3rd element
