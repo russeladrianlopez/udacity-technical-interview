@@ -435,3 +435,53 @@ as a representation of a node in the linked list. Return the value of the
 node at that position.
 """
 
+
+# Node class initialize
+class Node(object):
+
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+
+# Linked list class
+class LinkedList(object):
+
+    def __init__(self, head=None):
+        self.head = head
+
+    def push(self, new_data):
+        current = self.head
+        if self.head:
+            while current.next:
+                current = current.next
+            current.next = new_data
+        else:
+            self.head = new_data
+
+    def elemfromEnd(self, m):
+        pointer = self.head  # moves in respect with the brake
+        brake = self.head  # is setup to indicate the stop
+
+        # setup brake m nodes apart from pointer
+        count = 0
+        if brake is not None:
+            while count < m:
+                if brake is None:
+                    return "Input '%s' exceeds the length of the list" % (m)
+                brake = brake.next
+                count += 1
+
+        # move both pointer and brake until brake goes beyond the list length
+        while brake is not None:
+            pointer = pointer.next
+            brake = brake.next
+
+        return pointer.data
+
+
+def question5(ll, m):
+    if ll is not None and isinstance(ll, LinkedList):
+        return ll.elemfromEnd(m)
+    return "Input '%s' is not a Linkedlist object" % (ll)
+
