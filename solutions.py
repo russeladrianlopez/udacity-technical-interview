@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import unittest  # testing purposes
+import operator  # for sorting the weight in question #3
 
 """
 Question 1: Given two strings s and t, determine whether some anagram of
@@ -121,6 +122,96 @@ Your function should take in and return an adjacency list structured like this:
 Vertices are represented as unique strings.
 The function definition should be question3(G)
 """
+
+# Implement a Krusal algorithm
+parent = {}  # records parental relationship between the vertices
+rank = {}  # flatten the tree for better performance, depth of the vertex
+
+
+# initialize disjoint sets. each set contains one vertex(v). rank is
+# used to keep the tree flat as much as possible for better search.
+def create_set(v):
+    parent[v] = v
+    rank[v] = 0
+
+
+# find the root to which this vertex belongs
+def find(vertex):
+    if parent[vertex] == vertex:
+        return parent[vertex]
+    else:
+        return find(parent[vertex])
+
+
+# merge the sets represented by these two given root nodes
+def union(vertice1, vertice2):
+    root1 = find(vertice1)
+    root2 = find(vertice2)
+    if root1 != root2:
+        if rank[root1] > rank[root2]:
+            parent[root2] = root1
+        else:
+            parent[root1] = root2
+    else:
+        parent[root1] = root2
+        rank[root2] += 1
+
+
+def kruskal(vertices, edges):
+    minSpanningTree = set()
+    for vertex in vertices:
+        create_set(vertex)
+
+    # sort edges by according to weights
+    edges = sorted(edges, key=operator.itemgetter(2))
+
+    for edge in edges:
+        vertex1, vertex2, weight = edge
+        if find(vertex1) != find(vertex2):
+            union(vertex1, vertex2)
+            minSpanningTree.add(edge)
+
+    return minSpanningTree
+
+
+def question3(G):
+    if G:
+        vertices = []
+        edges = []
+
+        # pre process given input graph and extract all vertices and edges
+        try:
+            for vertex in G.keys():
+                # append vertices
+                vertices.append(vertex)
+                # extract the edges of each vertex
+                for edge in G[vertex]:
+                    direction, weight = edge
+                    edges.append((vertex, direction, weight))
+        except AttributeError:
+            return 'Input is not a Graph Dictionary'
+    else:
+        return "Empty Graph"
+
+    # perform Kruskal algorithm
+    tree = kruskal(vertices, edges)
+    print tree
+    # post process results into the required output format
+    output = {}
+    for vertex in tree:
+        origin, direction, weight = vertex
+
+        if origin in output:
+            output[origin].append((direction, weight))
+        else:
+            output[origin] = [(direction, weight)]
+
+        if direction in output:
+            output[direction].append((origin, weight))
+        else:
+            output[direction] = [(origin, weight)]
+    return output
+
 
 """
 Question 4: Find the least common ancestor between two nodes on a binary
