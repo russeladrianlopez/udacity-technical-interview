@@ -283,6 +283,83 @@ question4([[0, 1, 0, 0, 0],
 and the answer would be 3.
 """
 
+
+# Node class initialize
+class Q4Node(object):
+
+    def __init__(self, value):
+        self.value = value
+        self.right = None
+        self.left = None
+
+
+# insert a child node on the right
+def push_right(node, new_value):
+    new_node = Q4Node(new_value)
+    node.right = new_node
+    return new_node
+
+
+# insert a child node on the left
+def push_left(node, new_value):
+    new_node = Q4Node(new_value)
+    node.left = new_node
+    return new_node
+
+
+# find LCA of n1 and n2.
+def getLCA(root, n1, n2):
+    # Base Case
+    if root is None:
+        return "Root doesnt exist"
+
+    if not isinstance(n1, int) or not isinstance(n2, int):
+        return "Node input not integer"
+    # moves the root pointer to left
+    # if both nodes are greater value than the root
+    if(root.value > n1 and root.value > n2):
+        return getLCA(root.left, n1, n2)
+    # moves the root pointer to right
+    # if both nodes are lesser value than the root
+    elif(root.value < n1 and root.value < n2):
+        return getLCA(root.right, n1, n2)
+
+    # If root on the middle of both nodes
+    return root.value
+
+
+def question4(T, r, n1, n2):
+    # Validate inputs
+    # Create Tree based on Matrix
+    root = Q4Node(r)
+    node_value = 0
+    node_list = []
+
+    # setting up the root
+    for index in T[r]:
+        if index:
+            if(node_value > r):
+                node_list.append(push_right(root, node_value))
+            else:
+                node_list.append(push_left(root, node_value))
+        node_value += 1
+
+    # setting up the child nodes
+    node = node_list.pop(0)
+    while node_list != []:
+        node_value = 0
+        for index in T[node.value]:
+            if index:
+                if(node_value > node.value):
+                    node_list.append(push_right(node, node_value))
+                else:
+                    node_list.append(push_left(node, node_value))
+            node_value += 1
+        node = node_list.pop(0)
+
+    return getLCA(root, n1, n2)
+
+
 """
 Question 5: Find the element in a singly linked list that's m elements
 from the end. For example, if a linked list has 5 elements, the 3rd element
