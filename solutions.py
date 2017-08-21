@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import unittest  # testing purposes
 
 """
 Question 1: Given two strings s and t, determine whether some anagram of
@@ -32,6 +33,30 @@ def question1(s, t):
                 return True
     return False
 
+
+class TestQuestion1(unittest.TestCase):
+    print '\nTESTCASES FOR QUESTION #1: \n'
+
+    def test_isanagram(self):
+        self.assertTrue(question1('udacity', 'ad'))
+        self.assertTrue(question1('udacity', 'da'))
+
+    def test_notanagram(self):
+        self.assertFalse(question1('udacity', 'xyz'))
+        self.assertFalse(question1('udacity', 'act'))
+        self.assertFalse(question1('uda', 'udacity'))
+
+    def test_emptystring(self):
+        self.assertFalse(question1('', 'ab'))
+        self.assertFalse(question1('udacity', ''))
+        with self.assertRaises(TypeError):
+            question1('udacity', 1)
+        with self.assertRaises(TypeError):
+            (question1(True, 'ab'))
+
+
+suite = unittest.TestLoader().loadTestsFromTestCase(TestQuestion1)
+unittest.TextTestRunner(verbosity=2).run(suite)
 
 """
 Question 2: Given a string a, find the longest palindromic substring
