@@ -1,0 +1,61 @@
+EXPLANATIONS:
+
+Question  #1:
+
+In the comparison function "is_anagram" we are running a quicksort method for the lists,
+which has time complexity of O(n * log(n)). In the function "question1" there is only one
+for loop which has a runtime of O(len(s)-len(t)) times or O(n), apart from those two everything
+else is running in constant time. Overall, the worst case time efficiency can be narrowed down
+to O(n * log(n))
+
+Problem involves string comparison which can be done by transforming the string as
+list of characters, so that we can compare and iterate each character of the string.
+That is why I choose list as data structure. Space complexity of this is O(n) where n is
+the sum of the lenght of both list.
+
+Question #2:
+
+In this function since we have a nested loop, which results into a runtime of O(n^2) where
+n is the lenght of the string. The use of max, lower and replace methods result into a
+runtime of O(n), Apart from those everything else is running in constant time. In that case,
+the worst case time efficiency can be narrowed down to to O(n^2).
+
+Problem involves string manipulation which can be done by transforming the string as
+list of characters, so that we can compare and iterate each character of the string.
+That is why I choose list as data structure. Space complexity of this is O(n^2) where
+we list all possible palindromes then we get the  longest palindrome out of that list.
+
+Question #3:
+
+Minimun Spanning tree is a subset of edges that connects all vertices with the least weight possible.
+Kruskal’s Algorithm builds the spanning tree by adding edges one by one into a growing spanning tree.
+In this problem I implemented disjoint sets and Kruskal's algorithim by creating disjoint sets from the
+key of the given graph and storing both the disjoint vertices and edges in thier own respective list thus
+generating a runtime of O(n^2). On the kruskal function sorting edges has complexity of O(n*log(n)), while
+the for loop that iterates over edges has an overall complexity of O(n). Thus in total, the worse case time
+efficiency is O(n*log(n)).
+
+Because of the use of dictionary data structure, it allows us to use keys for the union function
+to perform in a constant time complexity O(1) and the find function to perform at O(depth). Space complexity
+of storing all vertices and edges is O(V + E) where V and O are the number of vertices and edges respectively.
+while the set is O(V) where V is the number of vertices. Overall, it can be narrowed to O(n), where n is the
+number of vertices + number of edge in the graph.
+
+Question #4:
+
+In this problem, the building of the binary tree the runtime complexity of O(n^2), where n is the number of index
+in the matrix. Finding the Least Common Ancestor has a runtime complexity of O(n) where n is height of a tree.
+Overall, the time complexity of boils down to O(n^2).
+
+Binary Search Tree or sorted binary trees are mainly used for data storage such as numbers in memory, this way we
+can implement a way to traverse upward using a parent pointer and return the first intersecting node. That is
+why we choose a Binary Search Tree as data structure. Space complexity for the tree is O(n) where n is height of
+the tree.
+
+Question #5:
+
+This problem is solved using a linear solution thus we used LinkedList data structure where elements are linked
+using pointers. Since it is a linear search the time complexity is of O(n) where n is the number of elements.
+Searching for mth nodes from end, both pointers are running with O(n). Overall runtime complexity is O(n).
+
+Pointers that were used take up O(n) space. Worst case space complexity of singly linked list is O(n).
