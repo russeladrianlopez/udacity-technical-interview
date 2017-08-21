@@ -485,3 +485,59 @@ def question5(ll, m):
         return ll.elemfromEnd(m)
     return "Input '%s' is not a Linkedlist object" % (ll)
 
+
+class TestQuestion5(unittest.TestCase):
+    print '\nTESTCASES FOR QUESTION #5: \n'
+
+    def setUp(self):
+        # setup Linked List nodes
+        node1 = Node(1)
+        node2 = Node(2)
+        node3 = Node(3)
+        node4 = Node(4)
+        node5 = Node(5)
+
+        self.ll = LinkedList(node1)
+        self.ll.push(node2)
+        self.ll.push(node3)
+        self.ll.push(node4)
+        self.ll.push(node5)
+
+    def test_elemFromEnd(self):
+        self.assertEqual(question5(self.ll, 3), 3)
+        self.assertEqual(question5(self.ll, 2), 4)
+        self.assertEqual(question5(self.ll, 5), 1)
+
+    def test_notLinkedList(self):
+        self.assertEqual(question5('string', 3),
+                         "Input 'string' is not a Linkedlist object")
+        self.assertEqual(question5(1, 3),
+                         "Input '1' is not a Linkedlist object")
+        self.assertEqual(question5(None, 3),
+                         "Input 'None' is not a Linkedlist object")
+
+    def test_m_inputistoomuch(self):
+        self.assertEqual(question5(self.ll, 30),
+                         "Input '30' exceeds the length of the list")
+
+
+suite = unittest.TestLoader().loadTestsFromTestCase(TestQuestion5)
+unittest.TextTestRunner(verbosity=2).run(suite)
+
+# Combine all test
+'''
+test_cases = (TestQuestion1, TestQuestion2, TestQuestion3,
+              TestQuestion4, TestQuestion5)
+
+
+def load_tests(loader, tests_cases, pattern):
+    suite = unittest.TestSuite()
+    for test_class in test_cases:
+        tests = loader.loadTestsFromTestCase(test_class)
+        suite.addTests(tests)
+    return suite
+
+
+suite = load_tests(unittest.TestLoader(), test_cases, None)
+unittest.TextTestRunner(verbosity=2).run(suite)
+'''
