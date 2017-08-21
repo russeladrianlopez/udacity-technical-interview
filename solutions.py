@@ -212,6 +212,50 @@ def question3(G):
             output[direction] = [(origin, weight)]
     return output
 
+class TestQuestion3(unittest.TestCase):
+    print '\nTESTCASES FOR QUESTION #3: \n'
+
+    def test_hasgraph(self):
+        self.assertEqual(question3({'A': [('B', 4), ('F', 2)],
+                                    'B': [('C', 6), ('F', 5)],
+                                    'C': [('B', 6), ('D', 3), ('F', 1)],
+                                    'D': [('C', 3), ('E', 2)],
+                                    'E': [('D', 2), ('F', 4)],
+                                    'F': [('B', 5), ('C', 1), ('E', 4)]
+                                    }), {'A': [('B', 4), ('F', 2)],
+                                         'C': [('F', 1), ('D', 3)],
+                                         'B': [('A', 4)], 'E': [('D', 2)],
+                                         'D': [('E', 2), ('C', 3)],
+                                         'F': [('C', 1), ('A', 2)]
+                                         })
+        self.assertEqual(question3({'A': [('B', 2)],
+                                    'B': [('A', 2), ('C', 5)],
+                                    'C': [('B', 5)]
+                                    }), {'A': [('B', 2)],
+                                         'C': [('B', 5)],
+                                         'B': [('C', 5), ('A', 2)]
+                                         })
+        self.assertEqual(question3({'A': [('B', 1), ('C', 1)],
+                                    'B': [('A', 1), ('C', 1)],
+                                    'C': [('A', 1), ('B', 1)],
+                                    }), {'A': [('C', 1), ('B', 1)],
+                                         'C': [('A', 1)],
+                                         'B': [('A', 1)]
+                                         })
+
+    def test_emptygraph(self):
+        self.assertEqual(question3({}), 'Empty Graph')
+        self.assertEqual(question3(None), 'Empty Graph')
+
+    def test_isgraph(self):
+        self.assertEqual(question3('String'),
+                         'Input is not a Graph Dictionary')
+        self.assertEqual(question3(True), 'Input is not a Graph Dictionary')
+        self.assertEqual(question3(123), 'Input is not a Graph Dictionary')
+
+
+suite = unittest.TestLoader().loadTestsFromTestCase(TestQuestion3)
+unittest.TextTestRunner(verbosity=2).run(suite)
 
 """
 Question 4: Find the least common ancestor between two nodes on a binary
