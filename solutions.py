@@ -84,6 +84,30 @@ def question2(s):
         return 'Longest palindrome: %s' % (longest)
     return 'No Palindrome found'
 
+
+class TestQuestion2(unittest.TestCase):
+    print '\nTESTCASES FOR QUESTION #2: \n'
+
+    def test_haspalindrome(self):
+        self.assertEqual(question2('aa'), 'Longest palindrome: aa')
+        self.assertEqual(question2('aasomething'), 'Longest palindrome: aa')
+        self.assertEqual(question2('race car'), 'Longest palindrome: racecar')
+        self.assertEqual(question2('aabb bbccc'), 'Longest palindrome: bbbb')
+
+    def test_nopalindrome(self):
+        self.assertEqual(question2('udacity'), 'No Palindrome found')
+        self.assertEqual(question2('abcdefgh'), 'No Palindrome found')
+
+    def test_notstring(self):
+        self.assertEqual(question2(''), 'Input not a string or empty')
+        self.assertEqual(question2(1), 'Input not a string or empty')
+        self.assertEqual(question2(True), 'Input not a string or empty')
+        self.assertEqual(question2(None), 'Input not a string or empty')
+
+
+suite = unittest.TestLoader().loadTestsFromTestCase(TestQuestion2)
+unittest.TextTestRunner(verbosity=2).run(suite)
+
 """
 Question 3: Given an undirected graph G, find the minimum spanning tree
 within G. A minimum spanning tree connects all vertices in a graph with the
